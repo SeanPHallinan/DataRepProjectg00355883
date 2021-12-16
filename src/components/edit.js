@@ -6,23 +6,23 @@ class Edit extends Component {
     constructor() {
         super();
         this.handleSubmit = this.handleSubmit.bind(this);
-        this.onChangeMovieName = this.onChangeMovieName.bind(this);
-        this.onChangeMovieYear = this.onChangeMovieYear.bind(this);
-        this.onChangeMoviePoster = this.onChangeMoviePoster.bind(this);
+        this.onChangeWebsite = this.onChangeWebsite.bind(this);
+        this.onChangeUsername = this.onChangeUsername.bind(this);
+        this.onChangePassword = this.onChangePassword.bind(this);
         this.state = {
-            Title: '',
-            Year: '',
-            Poster: ''
+            Website: '',
+            Username: '',
+            Password: ''
         }
     }
 
     componentDidMount(){
-        axios.get('http://localhost:4000/api/movies/'+ this.props.match.params.id)
+        axios.get('http://localhost:4000/api/users/'+ this.props.match.params.id)
         .then((response)=>{
             this.setState({
-                Title:response.data.Title,
-                Year:response.data.Year,
-                Poster:response.data.Poster,
+                Website:response.data.Website,
+                Username:response.data.Username,
+                Password:response.data.Password,
                 _id:response.data._id
             })
         })
@@ -30,41 +30,41 @@ class Edit extends Component {
     }
 
     handleSubmit(event) {
-        console.log("Name: " +this.state.Title+
-        " Year: " + this.state.Year +
-        "Poster: " + this.state.Poster);
+        console.log("Name: " +this.state.Website+
+        " Username: " + this.state.Username +
+        "Password: " + this.state.Password);
 
-        const NewMovie = {
-            Title: this.state.Title,
-            Year: this.state.Year,
-            Poster: this.state.Poster
+        const NewUser = {
+            Website: this.state.Website,
+            Username: this.state.Username,
+            Password: this.state.Password
         }
 
-        axios.put('http://localhost:4000/api/movies/' + this.state._id, NewMovie)
+        axios.put('http://localhost:4000/api/users/' + this.state._id, NewUser)
         .then((response)=>{console.log(response)})
         .catch();
         
 
         event.preventDefault();
         this.setState({
-            Title:'',
-            Year:'',
-            Poster:''
+            Website:'',
+            Username:'',
+            Password:''
         });
     }
-    onChangeMovieName(event) {
+    onChangeWebsite(event) {
         this.setState({
-            Title: event.target.value
+            Website: event.target.value
         })
     }
-    onChangeMovieYear(event) {
+    onChangeUsername(event) {
         this.setState({
-            Year: event.target.value
+            Username: event.target.value
         })
     }
-    onChangeMoviePoster(event){
+    onChangePassword(event){
         this.setState({
-            Poster: event.target.value
+            Password: event.target.value
         })
     }
 
@@ -75,31 +75,31 @@ class Edit extends Component {
                 <form onSubmit={this.handleSubmit}>
 
                     <div className="form-group">
-                        <label>Edit Movie Name: </label>
+                        <label>Edit Website Name: </label>
                         <input type="text"
                             className="form-control"
-                            value={this.state.Title}
-                            onChange={this.onChangeMovieName}
+                            value={this.state.Website}
+                            onChange={this.onChangeWebsite}
                         />
                     </div>
                     <div className="form-group">
-                        <label>Edit Movie Year: </label>
+                        <label>Edit Username: </label>
                         <input type="text"
                             className="form-control"
-                            value={this.state.Year}
-                            onChange={this.onChangeMovieYear}
+                            value={this.state.Username}
+                            onChange={this.onChangeUsername}
                         />
                     </div>
                     <div className="form-group">
-                        <label>Edit Movie Poster: </label>
+                        <label>Edit Password: </label>
                         <textarea type="text"
                             className="form-control"
-                            value={this.state.Poster}
-                            onChange={this.onChangeMoviePoster}
+                            value={this.state.Password}
+                            onChange={this.onChangePassword}
                         />
                     </div>
                     <div>
-                        <input type="submit" value="Edit Movie"
+                        <input type="submit" value="Edit User"
                             className="btn btn-primary"></input>
                     </div>
                 </form>

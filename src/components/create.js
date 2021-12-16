@@ -5,28 +5,28 @@ class Create extends Component {
     constructor() {
         super();
         this.handleSubmit = this.handleSubmit.bind(this);
-        this.onChangeMovieName = this.onChangeMovieName.bind(this);
-        this.onChangeMovieYear = this.onChangeMovieYear.bind(this);
-        this.onChangeMoviePoster = this.onChangeMoviePoster.bind(this);
+        this.onChangeWebsite = this.onChangeWebsite.bind(this);
+        this.onChangeUsername = this.onChangeUsername.bind(this);
+        this.onChangePassword = this.onChangePassword.bind(this);
         this.state = {
-            Title: '',
-            Year: '',
-            Poster: ''
+            Website: '',
+            Username: '',
+            Password: ''
         }
     }
 
     handleSubmit(event) {
-        console.log("Name: " +this.state.Title+
-        " Year: " + this.state.Year +
-        "Poster: " + this.state.Poster);
+        console.log("Website: " +this.state.Website+
+        " Username: " + this.state.Username +
+        "Password: " + this.state.Password);
 
-        const NewMovie = {
-            Title: this.state.Title,
-            Year: this.state.Year,
-            Poster: this.state.Poster
+        const NewUser = {
+            Website: this.state.Website,
+            Username: this.state.Username,
+            Password: this.state.Password
         }
 
-        axios.post('http://localhost:4000/api/movies', NewMovie)
+        axios.post('http://localhost:4000/api/users', NewUser)
         .then((response)=>{
             console.log(response)
         })
@@ -36,59 +36,59 @@ class Create extends Component {
 
         event.preventDefault();
         this.setState({
-            Title:'',
-            Year:'',
-            Poster:''
+            Website:'',
+            Username:'',
+            Password:''
         });
     }
-    onChangeMovieName(event) {
+    onChangeWebsite(event) {
         this.setState({
-            Title: event.target.value
+            Website: event.target.value
         })
     }
-    onChangeMovieYear(event) {
+    onChangeUsername(event) {
         this.setState({
-            Year: event.target.value
+            Username: event.target.value
         })
     }
-    onChangeMoviePoster(event){
+    onChangePassword(event){
         this.setState({
-            Poster: event.target.value
+            Password: event.target.value
         })
     }
 
     render() {
         return (
-            <div>
-                <h1>This is my Create Component!</h1>
+            <div style={{display: 'flex',  justifyContent:'center', alignItems:'center', height: '100vh'}}>
+                <h1>This is the Create Component!</h1>
                 <form onSubmit={this.handleSubmit}>
 
                     <div className="form-group">
-                        <label>Add Movie Name: </label>
+                        <label>Website of account: </label>
                         <input type="text"
                             className="form-control"
-                            value={this.state.Title}
-                            onChange={this.onChangeMovieName}
+                            value={this.state.Website}
+                            onChange={this.onChangeWebsite}
                         />
                     </div>
                     <div className="form-group">
-                        <label>Add Movie Year: </label>
+                        <label>Account Username: </label>
                         <input type="text"
                             className="form-control"
-                            value={this.state.Year}
-                            onChange={this.onChangeMovieYear}
+                            value={this.state.Username}
+                            onChange={this.onChangeUsername}
                         />
                     </div>
                     <div className="form-group">
-                        <label>Add Movie Poster: </label>
+                        <label>Password: </label>
                         <textarea type="text"
                             className="form-control"
-                            value={this.state.Poster}
-                            onChange={this.onChangeMoviePoster}
+                            value={this.state.Password}
+                            onChange={this.onChangePassword}
                         />
                     </div>
                     <div>
-                        <input type="submit" value="Add Movie"
+                        <input type="submit" value="Add User"
                             className="btn btn-primary"></input>
                     </div>
                 </form>

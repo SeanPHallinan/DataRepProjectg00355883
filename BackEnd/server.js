@@ -21,7 +21,7 @@ app.use(bodyParser.json())
 
 const mongoose = require('mongoose');
 
-const strConnection = 'mongodb+srv://admin:admin@cluster0.8taek.mongodb.net/myFirstDatabase?retryWrites=true&w=majority'
+const strConnection = 'mongodb+srv://admin:gmit1@cluster0.nfzxx.mongodb.net/myFirstDatabase?retryWrites=true&w=majority'
 
 main().catch(err => console.log(err));
 
@@ -29,45 +29,45 @@ async function main() {
   await mongoose.connect(strConnection);
 }
 
-const movieSchema = new mongoose.Schema({
-    Title:String,
-    Year:String,
-    Poster:String
+const userSchema = new mongoose.Schema({
+    Website:String,
+    Username:String,
+    Password:String
 });
 
-const movieModel = mongoose.model('martindfgdfgdfg', movieSchema);
+const userModel = mongoose.model('user', userSchema);
 
 
-app.get('/', (req, res) => {
+app.get('/users', (req, res) => {
     res.send('Hello World!')
 })
 
-app.post('/api/movies', (req,res)=>{
-    console.log(req.body);
-    console.log(req.body.Title);
-    console.log(req.body.Year);
-    console.log(req.body.Poster);
+app.post('/api/users', (req,res)=>{
+    console.log('user stored');
+    console.log(req.body.Website);
+    console.log(req.body.Username);
+    console.log(req.body.Password);
 
-    movieModel.create({
-        Title:req.body.Title,
-        Year:req.body.Year,
-        Poster:req.body.Poster
+    userModel.create({
+        Website:req.body.Website,
+        Username:req.body.Username,
+        Password:req.body.Password
     });
     res.send('Data Sent to Server!')
 })
 
-app.get('/api/movies/:id',(req, res)=>{
+app.get('/api/users/:id',(req, res)=>{
     console.log(req.params.id);
 
-    movieModel.findById(req.params.id,(error,data)=>{
+    userModel.findById(req.params.id,(error,data)=>{
         res.json(data);
     })
 })
 
-app.delete('/api/movies/:id', (req, res)=>{
+app.delete('/api/users/:id', (req, res)=>{
     console.log('Deleteing : '+req.params.id);
 
-    movieModel.deleteOne({_id:req.params.id},
+    userModel.deleteOne({_id:req.params.id},
         (error, data)=>{
             if(error)
                 res.send(error)
@@ -75,12 +75,12 @@ app.delete('/api/movies/:id', (req, res)=>{
         })
 })
 
-app.put('/api/movies/:id',(req, res)=>{
+app.put('/api/users/:id',(req, res)=>{
     console.log('update');
     console.log(req.body);
     console.log("Updating: " + req.params.id);
 
-    movieModel.findByIdAndUpdate(req.params.id, req.body, {new:true},
+    userModel.findByIdAndUpdate(req.params.id, req.body, {new:true},
         (err,data)=>{
             res.send(data);
         })
@@ -89,13 +89,10 @@ app.put('/api/movies/:id',(req, res)=>{
 
 
 
-app.get('/api/movies', (req, res) => {
-    movieModel.find((err, data)=>{
+app.get('/api/users', (req, res) => {
+    userModel.find((err, data)=>{
         res.json(data);
     })
-          
-           // https://m.media-amazon.com/images/M/MV5BNDQ4YzFmNzktMmM5ZC00MDZjLTk1OTktNDE2ODE4YjM2MjJjXkEyXkFqcGdeQXVyNTA4NzY1MzY@._V1_SX300.jpg
-      
 })
 
 

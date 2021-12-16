@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
-import Header from './components/header';
 import Content from './components/content';
-import Footer from './components/footer';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Navbar from 'react-bootstrap/Navbar';
 import Container from 'react-bootstrap/Container';
@@ -22,9 +20,9 @@ class App extends Component {
     return (
       <Router>
       <div className="App">
-        <Navbar bg="primary" variant="dark">
+        <Navbar bg="dark" variant="dark">
           <Container>
-            <Navbar.Brand href="/">Navbar</Navbar.Brand>
+            <Navbar.Brand href="/">Password Store</Navbar.Brand>
             <Nav className="me-auto">
               <Nav.Link href="/">Home</Nav.Link>
               <Nav.Link href="/read">Read</Nav.Link>
